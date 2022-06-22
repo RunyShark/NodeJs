@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const crearArchivoTabla = async (base) => {
+const crearArchivoTabla = async (base, listado) => {
   if (base <= 0 || isNaN(base)) {
     throw Error(
       `Algo salio mal la ${
@@ -10,19 +10,24 @@ const crearArchivoTabla = async (base) => {
       } `
     );
   }
+
   try {
-    console.log("========================");
-    console.log(`        Tabla del`, base);
-    console.log("========================");
-    let salida = "";
-    for (let i = 1; i < 11; i++) {
-      salida += `${base} x ${i} = ${base * i}\n`;
+    if (listado) {
+      console.log("========================");
+      console.log(`        Tabla del`, base);
+      console.log("========================");
+      let salida = "";
+      for (let i = 1; i < 11; i++) {
+        salida += `${base} x ${i} = ${base * i}\n`;
+      }
+
+      fs.writeFileSync(`tabla-${base}.txt`, salida);
+
+      return `${salida}
+      Tabla del ${base} creada`;
+    } else {
+      return `la tabla del ${base} no se puede ejecutar ya que el listado esta en false`;
     }
-
-    fs.writeFileSync(`tabla-${base}.txt`, salida);
-
-    return `${salida}
-    Tabla del ${base} creada`;
   } catch (error) {
     console.log("========================");
     console.log(`La tabla del`, base, `No se pudo guardar correctamente`);
