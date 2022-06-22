@@ -1,7 +1,7 @@
 const fs = require("fs");
 
 const crearArchivoTabla = async (base) => {
-  if (base <= 0 || base !== "number") {
+  if (base <= 0 || isNaN(base)) {
     throw Error(
       `Algo salio mal la ${
         base !== "string"
